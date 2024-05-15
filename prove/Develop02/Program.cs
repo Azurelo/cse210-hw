@@ -59,11 +59,13 @@ class Journal
     private List<JournalEntry> _entries = new List<JournalEntry>();
     private List<string> _customPrompts = new List<string>();
     private string[] _defaultPrompts = {
+        "Where did you go to today?",
         "Who was the most interesting person I interacted with today?",
         "What was the best part of my day?",
         "How did I see the hand of the Lord in my life today?",
         "What was the strongest emotion I felt today?",
-        "If I had one thing I could do over today, what would it be?"
+        "If I had one thing I could do over today, what would it be?",
+        "On a scale of 1-10 how much energy did you use?"
     };
 
     public void AddEntry()
