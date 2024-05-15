@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+//My program goes above expectations by allowing the user a new menu option to enter their own prompts for future entries.
 class JournalProgram
 {
     static void Main(string[] args)
@@ -100,7 +101,6 @@ class Journal
                 writer.WriteLine($"{entry._date}: {entry._prompt} - {entry._response}");
             }
         }
-
         Console.WriteLine($"Journal saved to {filename}.");
     }
 
@@ -119,18 +119,16 @@ class Journal
                 string[] parts = line.Split(new char[] { ':' }, 2);
                 if (parts.Length != 2)
                 {
-                    // Invalid entry format, skip
                     continue;
                 }
 
                 string[] entryParts = parts[1].Split(new string[] { " - " }, StringSplitOptions.None);
                 if (entryParts.Length != 2)
                 {
-                    // Invalid entry format, skip
                     continue;
                 }
 
-                string date = parts[0].Trim(); // Treat date as a string
+                string date = parts[0].Trim(); 
                 string prompt = entryParts[0].Trim();
                 string response = entryParts[1].Trim();
 
