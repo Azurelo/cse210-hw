@@ -160,9 +160,9 @@ class Journal
 
 class JournalEntry
 {
-    public string _prompt { get; }
-    public string _response { get; }
-    public string _date { get; }
+    public string _prompt = "";
+    public string _response = "";
+    public string _date = "";
 
     public JournalEntry(string prompt, string response, string date)
     {
