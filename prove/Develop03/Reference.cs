@@ -23,7 +23,7 @@ public class Reference
 
     public override string ToString()
     {
-        if (_endChapter.HasValue && _endVerse.HasValue)
+        if (_endVerse.HasValue)
         {
             return $"{_book} {_startChapter}:{_startVerse}-{_endChapter}:{_endVerse}";
         }
