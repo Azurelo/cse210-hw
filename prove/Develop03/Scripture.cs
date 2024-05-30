@@ -20,19 +20,20 @@ public class Scripture
         Console.WriteLine();
     }
 
-    public void HideWords()
+    public void HideWords(int numberOfWordsToHide)
     {
         Random random = new Random();
         int visibleWordsCount = _words.Count(word => word.IsVisible);
-        int wordsToHide = Math.Min(random.Next(1, 4), visibleWordsCount);
+        numberOfWordsToHide = Math.Min(numberOfWordsToHide, visibleWordsCount);
 
-        while (wordsToHide > 0)
+        int wordsHidden = 0;
+        while (wordsHidden < numberOfWordsToHide)
         {
             Word word = _words[random.Next(_words.Count)];
             if (word.IsVisible)
             {
                 word.ToggleVisibility();
-                wordsToHide--;
+                wordsHidden++;
             }
         }
     }

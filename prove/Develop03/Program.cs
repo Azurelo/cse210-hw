@@ -14,7 +14,7 @@ class Program
         while (true)
         {
             scripture.Display();
-            Console.WriteLine("\nPress Enter to hide words or type 'quit' to exit.");
+            Console.WriteLine("\nEnter the number of words to hide or type 'quit' to exit:");
             string input = Console.ReadLine();
 
             if (input.ToLower() == "quit")
@@ -22,14 +22,22 @@ class Program
                 break;
             }
 
-            scripture.HideWords();
-
-            if (scripture.AreAllWordsHidden())
+            if (int.TryParse(input, out int numberOfWordsToHide))
             {
-                Console.Clear();
-                Console.WriteLine("All words are hidden!");
-                break;
+                scripture.HideWords(numberOfWordsToHide);
+
+                if (scripture.AreAllWordsHidden())
+                {
+                    Console.Clear();
+                    Console.WriteLine("All words are hidden!");
+                    break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number or 'quit' to exit.");
             }
         }
+
     }
 }
