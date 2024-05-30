@@ -3,7 +3,6 @@ public class Reference
     private string _book;
     private int _startChapter;
     private int _startVerse;
-    private int? _endChapter;
     private int? _endVerse;
 
     public Reference(string book, int startChapter, int startVerse)
