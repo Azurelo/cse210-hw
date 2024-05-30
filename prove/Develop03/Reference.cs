@@ -25,7 +25,7 @@ public class Reference
     {
         if (_endVerse.HasValue)
         {
-            return $"{_book} {_startChapter}:{_startVerse}-{_endChapter}:{_endVerse}";
+            return $"{_book} {_startChapter}:{_startVerse}-{_endVerse}";
         }
         else
         {
