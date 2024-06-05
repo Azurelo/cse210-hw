@@ -1,6 +1,6 @@
 public class Breathing : Activity
 {
-    public BreathingActivity(int duration)
+    public Breathing(int duration)
         : base(duration, "Breathing", "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.")
     {
     }
