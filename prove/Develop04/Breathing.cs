@@ -10,7 +10,7 @@ public class Breathing : Activity
     {
         Start();
         SpinnerAnimation(5);
-        for (int i = 0; i < _duration / 6; i++) // Assuming 6 seconds per breath cycle
+        for (int i = 0; i < _duration / 6; i++) 
         {
             Console.WriteLine("Breathe in...");
             Pause("", 3);

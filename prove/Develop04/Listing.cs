@@ -19,11 +19,13 @@ public class Listing : Activity
         Start();
         SpinnerAnimation(5);
         var random = new Random();
+        //Get random prompt
         string prompt = _listingPrompts[random.Next(_listingPrompts.Count)];
         Console.WriteLine(prompt);
         Pause("Prepare to begin listing...", 5);
         var startTime = DateTime.Now;
         var items = new List<string>();
+        //allow user to keep entering items
         while ((DateTime.Now - startTime).TotalSeconds < _duration)
         {
             Console.Write("List an item: ");

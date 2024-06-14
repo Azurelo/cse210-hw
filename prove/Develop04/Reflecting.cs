@@ -30,6 +30,7 @@ public class Reflection : Activity
     {
         Start();
         SpinnerAnimation(5);
+        //get random prompt
         var random = new Random();
         string prompt = _reflectionPrompts[random.Next(_reflectionPrompts.Count)];
         Console.WriteLine(prompt);

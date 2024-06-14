@@ -46,7 +46,7 @@ public class Activity
         for (int i = 0; i < totalSteps; i++)
         {
             Console.Write($"\r{spinnerChars[i % spinnerChars.Length]}");
-            System.Threading.Thread.Sleep(100); 
+            Thread.Sleep(100); 
         }
         Console.WriteLine();
     }
