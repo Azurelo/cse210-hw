@@ -22,7 +22,7 @@ public class Program
             Console.Write("Select an option: ");
             string choice = Console.ReadLine();
 
-            if (choice == "4") break;
+            if (choice == "5") break;
 
             Console.Write("Enter the duration of the activity in seconds: ");
             int duration = int.Parse(Console.ReadLine());
