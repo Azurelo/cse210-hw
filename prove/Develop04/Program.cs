@@ -17,7 +17,8 @@ public class Program
             Console.WriteLine("1. Breathing Activity");
             Console.WriteLine("2. Reflection Activity");
             Console.WriteLine("3. Listing Activity");
-            Console.WriteLine("4. Quit");
+            Console.WriteLine("4. Stretching Activity");
+            Console.WriteLine("5. Quit");
             Console.Write("Select an option: ");
             string choice = Console.ReadLine();
 
@@ -40,6 +41,10 @@ public class Program
                     var listingActivity = new Listing(duration);
                     listingActivity.PerformActivity();
                     break;
+                case "4":
+                var stretchingActivity = new Stretching(duration);
+                stretchingActivity.PerformActivity();
+                break;
                 default:
                     Console.WriteLine("Invalid option. Please try again.");
                     break;
