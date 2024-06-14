@@ -17,10 +17,11 @@ public class Listing : Activity
     public void PerformActivity()
     {
         Start();
+        SpinnerAnimation(5);
         var random = new Random();
         string prompt = _listingPrompts[random.Next(_listingPrompts.Count)];
         Console.WriteLine(prompt);
-        PauseWithAnimation("Prepare to begin listing...", 5);
+        Pause("Prepare to begin listing...", 5);
         var startTime = DateTime.Now;
         var items = new List<string>();
         while ((DateTime.Now - startTime).TotalSeconds < _duration)

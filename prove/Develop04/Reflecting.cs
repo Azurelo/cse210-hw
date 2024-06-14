@@ -29,14 +29,15 @@ public class Reflection : Activity
     public void PerformActivity()
     {
         Start();
+        SpinnerAnimation(5);
         var random = new Random();
         string prompt = _reflectionPrompts[random.Next(_reflectionPrompts.Count)];
         Console.WriteLine(prompt);
-        for (int i = 0; i < _duration / 10; i++) // Assuming each question takes 10 seconds
+        for (int i = 0; i < _duration / 10; i++) 
         {
             string question = _reflectionQuestions[random.Next(_reflectionQuestions.Count)];
             Console.WriteLine(question);
-            PauseWithAnimation("", 10);
+            Pause("", 10);
         }
         End();
     }

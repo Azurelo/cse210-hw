@@ -4,6 +4,7 @@ public class Activity
     protected string _name;
     protected string _description;
 
+    //activity constructor
     public Activity(int duration, string name, string description)
     {
         _duration = duration;
@@ -11,26 +12,41 @@ public class Activity
         _description = description;
     }
 
+    //universl start function
     public void Start()
     {
         Console.WriteLine($"Starting {_name} activity.");
         Console.WriteLine(_description);
-        PauseWithAnimation("Prepare to begin...", 3);
+        Pause("Prepare to begin the activity", 3);
     }
 
+    //universal end function
     public void End()
     {
         Console.WriteLine($"Great job! You've completed the {_name} activity for {_duration} seconds.");
-        PauseWithAnimation("Ending...", 3);
+        Pause("Activity ending soon", 3);
     }
-
-    public void PauseWithAnimation(string message, int seconds)
+    
+    //Pause animation all of the derived activities will use when the user is waiting
+    public void Pause(string message, int seconds)
     {
         Console.WriteLine(message);
         for (int i = 0; i < seconds; i++)
         {
             Console.Write(".");
-            Thread.Sleep(1000); // Pause for 1 second
+            Thread.Sleep(1000); 
+        }
+        Console.WriteLine();
+    }
+
+    protected void SpinnerAnimation(int durationInSeconds)
+    {
+        char[] spinnerChars = new[] { '|', '/', '-', '\\' };
+        int totalSteps = durationInSeconds * 10; 
+        for (int i = 0; i < totalSteps; i++)
+        {
+            Console.Write($"\r{spinnerChars[i % spinnerChars.Length]}");
+            System.Threading.Thread.Sleep(100); 
         }
         Console.WriteLine();
     }
