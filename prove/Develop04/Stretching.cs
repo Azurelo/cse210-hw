@@ -1,3 +1,4 @@
+//stretching activity added to exceed core requirements
 public class Stretching : Activity
 {
     public Stretching(int duration)
@@ -10,11 +11,12 @@ public class Stretching : Activity
         Start();
         SpinnerAnimation(5); 
         Console.WriteLine("Stretching activity in progress...");
-        PauseWithCountdown("Hold the stretch", 5);
+        Countdown("Hold the stretch", _duration);
         Console.WriteLine("Release the stretch.");
+        End();
     }
-
-    private void PauseWithCountdown(string message, int seconds)
+    //unique countdown animation
+    private void Countdown(string message, int seconds)
     {
         for (int i = seconds; i > 0; i--)
         {
