@@ -5,9 +5,9 @@ class Program
     static void Main(string[] args)
     {
         QuestTracker questTracker = new QuestTracker();
-        bool exit = false;
+        bool quit = false;
 
-        while (!exit)
+        while (!quit)
         {
             Console.WriteLine("===== Main Menu =====");
             Console.WriteLine("1. Create Goal");
@@ -46,7 +46,7 @@ class Program
                     questTracker.RedeemGoldCoins();
                     break;
                 case "8":
-                    exit = true;
+                    quit = true;
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Please enter a number from 1 to 8.");
