@@ -1,7 +1,7 @@
 
 class QuestTracker
 {
-    private List<Quest> _goals;
+    private List<Quest> _quests;
     private int _totalPoints;
     private int _level;
     private int _goldCoins;
@@ -34,15 +34,15 @@ class QuestTracker
         Console.Write("Enter points: ");
         int points = int.Parse(Console.ReadLine());
 
-        Goal goal = null;
+        Quest quest = null;
 
         switch (choice)
         {
             case "1":
-                goal = new SimpleQuest(name, description, points);
+                quest = new SimpleQuest(name, description, points);
                 break;
             case "2":
-                goal = new EternalQuest(name, description, points);
+                quest = new EternalQuest(name, description, points);
                 break;
             case "3":
                 Console.Write("Enter target count: ");
@@ -51,14 +51,14 @@ class QuestTracker
                 Console.Write("Enter bonus points: ");
                 int bonusPoints = int.Parse(Console.ReadLine());
 
-                goal = new ListQuest(name, description, points, targetCount, bonusPoints);
+                quest = new ListQuest(name, description, points, targetCount, bonusPoints);
                 break;
             default:
                 Console.WriteLine("Invalid choice.");
                 return;
         }
 
-        _goals.Add(goal);
+        _quests.Add(quest);
         Console.WriteLine("Goal created successfully.");
     }
 
@@ -70,22 +70,22 @@ class QuestTracker
         Console.Write("Enter the number of the goal to record: ");
         int goalNumber = int.Parse(Console.ReadLine()) - 1;
 
-        if (goalNumber < 0 || goalNumber >= _goals.Count)
+        if (goalNumber < 0 || goalNumber >= _quests.Count)
         {
             Console.WriteLine("Invalid goal number.");
             return;
         }
 
-        _goals[goalNumber].RecordEvent(ref _totalPoints);
+        _quests[goalNumber].RecordEvent(ref _totalPoints);
         CheckLevelUp();
     }
 
     public void DisplayGoals()
     {
         Console.WriteLine("===== Display Goals =====");
-        for (int i = 0; i < _goals.Count; i++)
+        for (int i = 0; i < _quests.Count; i++)
         {
-            Console.WriteLine($"{i + 1}. {_goals[i].ToString()}");
+            Console.WriteLine($"{i + 1}. {_quests[i].ToString()}");
         }
         Console.WriteLine($"Total Points: {_totalPoints}");
         Console.WriteLine($"Level: {_level}");
@@ -103,9 +103,9 @@ class QuestTracker
             writer.WriteLine(_level);
             writer.WriteLine(_goldCoins);
 
-            foreach (Goal goal in _goals)
+            foreach (Quest quest in _quests)
             {
-                writer.WriteLine(goal.ToString());
+                writer.WriteLine(quest.ToString());
             }
         }
 
@@ -123,7 +123,7 @@ class QuestTracker
             return;
         }
 
-        _goals.Clear();
+        _quests.Clear();
 
         using (StreamReader reader = new StreamReader(fileName))
         {
@@ -140,26 +140,26 @@ class QuestTracker
                 string description = parts[2];
                 int points = int.Parse(parts[3]);
 
-                Goal goal = null;
+                Quest quest = null;
 
                 switch (type)
                 {
                     case "SimpleQuest":
                         bool isComplete = bool.Parse(parts[4]);
-                        goal = new SimpleQuest(name, description, points, isComplete);
+                        quest = new SimpleQuest(name, description, points, isComplete);
                         break;
                     case "EternalQuest":
-                        goal = new EternalQuest(name, description, points);
+                        quest = new EternalQuest(name, description, points);
                         break;
                     case "ListQuest":
                         int targetCount = int.Parse(parts[4]);
                         int currentCount = int.Parse(parts[5]);
                         int bonusPoints = int.Parse(parts[6]);
-                        goal = new ListQuest(name, description, points, targetCount, currentCount, bonusPoints);
+                        quest = new ListQuest(name, description, points, targetCount, currentCount, bonusPoints);
                         break;
                 }
 
-                _goals.Add(goal);
+                _quests.Add(quest);
             }
         }
 
