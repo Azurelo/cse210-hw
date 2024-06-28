@@ -1,199 +1,202 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
 
-class QuestTracker
+namespace QuestTrackerApp
 {
-    private List<Quest> _quests;
-    private int _totalPoints;
-    private int _level;
-    private int _goldCoins;
-
-    public QuestTracker()
+    class QuestTracker
     {
-        _quests = new List<Quest>();
-        _totalPoints = 0;
-        _level = 1;
-        _goldCoins = 0;
-    }
+        private List<Quest> _quests;
+        private int _totalPoints;
+        private int _level;
+        private int _goldCoins;
 
-    public void CreateGoal()
-    {
-        Console.WriteLine("===== Create a New Goal =====");
-        Console.WriteLine("Select goal type:");
-        Console.WriteLine("1. Simple Goal");
-        Console.WriteLine("2. Eternal Goal");
-        Console.WriteLine("3. Checklist Goal");
-
-        Console.Write("Enter your choice: ");
-        string choice = Console.ReadLine();
-
-        Console.Write("Enter goal name: ");
-        string name = Console.ReadLine();
-
-        Console.Write("Enter goal description: ");
-        string description = Console.ReadLine();
-
-        Console.Write("Enter points: ");
-        int points = int.Parse(Console.ReadLine());
-
-        Quest quest = null;
-
-        switch (choice)
+        public QuestTracker()
         {
-            case "1":
-                quest = new SimpleQuest(name, description, points);
-                break;
-            case "2":
-                quest = new EternalQuest(name, description, points);
-                break;
-            case "3":
-                Console.Write("Enter target count: ");
-                int targetCount = int.Parse(Console.ReadLine());
+            _quests = new List<Quest>();
+            _totalPoints = 0;
+            _level = 1;
+            _goldCoins = 0;
+        }
 
-                Console.Write("Enter bonus points: ");
-                int bonusPoints = int.Parse(Console.ReadLine());
+        public void CreateGoal()
+        {
+            Console.WriteLine("===== Create a New Goal =====");
+            Console.WriteLine("Select goal type:");
+            Console.WriteLine("1. Simple Goal");
+            Console.WriteLine("2. Eternal Goal");
+            Console.WriteLine("3. Checklist Goal");
 
-                quest = new ListQuest(name, description, points, targetCount, bonusPoints);
-                break;
-            default:
-                Console.WriteLine("Invalid choice.");
+            Console.Write("Enter your choice: ");
+            string choice = Console.ReadLine();
+
+            Console.Write("Enter goal name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter goal description: ");
+            string description = Console.ReadLine();
+
+            Console.Write("Enter points: ");
+            int points = int.Parse(Console.ReadLine());
+
+            Quest quest = null;
+
+            switch (choice)
+            {
+                case "1":
+                    quest = new SimpleQuest(name, description, points);
+                    break;
+                case "2":
+                    quest = new EternalQuest(name, description, points);
+                    break;
+                case "3":
+                    Console.Write("Enter target count: ");
+                    int targetCount = int.Parse(Console.ReadLine());
+
+                    Console.Write("Enter bonus points: ");
+                    int bonusPoints = int.Parse(Console.ReadLine());
+
+                    quest = new ListQuest(name, description, points, targetCount, bonusPoints);
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    return;
+            }
+
+            _quests.Add(quest);
+            Console.WriteLine("Goal created successfully.");
+        }
+
+        public void RecordEvent()
+        {
+            Console.WriteLine("===== Record an Event =====");
+            DisplayGoals();
+
+            Console.Write("Enter the number of the goal to record: ");
+            if (!int.TryParse(Console.ReadLine(), out int goalNumber) || goalNumber < 1 || goalNumber > _quests.Count)
+            {
+                Console.WriteLine("Invalid goal number.");
                 return;
-        }
-
-        _quests.Add(quest);
-        Console.WriteLine("Goal created successfully.");
-    }
-
-    public void RecordEvent()
-    {
-        Console.WriteLine("===== Record an Event =====");
-        DisplayGoals();
-
-        Console.Write("Enter the number of the goal to record: ");
-        int goalNumber = int.Parse(Console.ReadLine()) - 1;
-
-        if (goalNumber < 0 || goalNumber >= _quests.Count)
-        {
-            Console.WriteLine("Invalid goal number.");
-            return;
-        }
-
-        _quests[goalNumber].RecordEvent(ref _totalPoints);
-        CheckLevelUp();
-    }
-
-    public void DisplayGoals()
-    {
-        Console.WriteLine("===== Display Goals =====");
-        for (int i = 0; i < _quests.Count; i++)
-        {
-            Console.WriteLine($"{i + 1}. {_quests[i].ToString()}");
-        }
-        Console.WriteLine($"Total Points: {_totalPoints}");
-        Console.WriteLine($"Level: {_level}");
-        Console.WriteLine($"Gold Coins: {_goldCoins}");
-    }
-
-    public void SaveGoals()
-    {
-        Console.Write("Enter the file name to save goals: ");
-        string fileName = Console.ReadLine();
-
-        using (StreamWriter writer = new StreamWriter(fileName))
-        {
-            writer.WriteLine(_totalPoints);
-            writer.WriteLine(_level);
-            writer.WriteLine(_goldCoins);
-
-            foreach (Quest quest in _quests)
-            {
-                writer.WriteLine(quest.ToString());
             }
+
+            _quests[goalNumber - 1].RecordEvent(ref _totalPoints);
+            CheckLevelUp();
         }
 
-        Console.WriteLine("Goals saved successfully.");
-    }
-
-    public void LoadGoals()
-    {
-        Console.Write("Enter the file name to load goals: ");
-        string fileName = Console.ReadLine();
-
-        if (!File.Exists(fileName))
+        public void DisplayGoals()
         {
-            Console.WriteLine("File not found.");
-            return;
-        }
-
-        _quests.Clear();
-
-        using (StreamReader reader = new StreamReader(fileName))
-        {
-            _totalPoints = int.Parse(reader.ReadLine());
-            _level = int.Parse(reader.ReadLine());
-            _goldCoins = int.Parse(reader.ReadLine());
-
-            string line;
-            while ((line = reader.ReadLine()) != null)
+            Console.WriteLine("===== Display Goals =====");
+            for (int i = 0; i < _quests.Count; i++)
             {
-                string[] parts = line.Split('|');
-                string type = parts[0];
-                string name = parts[1];
-                string description = parts[2];
-                int points = int.Parse(parts[3]);
+                Console.WriteLine($"{i + 1}. {_quests[i]}");
+            }
+            Console.WriteLine($"Total Points: {_totalPoints}");
+            Console.WriteLine($"Level: {_level}");
+            Console.WriteLine($"Gold Coins: {_goldCoins}");
+        }
 
-                Quest quest = null;
+        public void SaveGoals()
+        {
+            Console.Write("Enter the file name to save goals: ");
+            string fileName = Console.ReadLine();
 
-                switch (type)
+            using (StreamWriter writer = new StreamWriter(fileName))
+            {
+                writer.WriteLine(_totalPoints);
+                writer.WriteLine(_level);
+                writer.WriteLine(_goldCoins);
+
+                foreach (Quest quest in _quests)
                 {
-                    case "SimpleQuest":
-                        bool isComplete = bool.Parse(parts[4]);
-                        quest = new SimpleQuest(name, description, points, isComplete);
-                        break;
-                    case "EternalQuest":
-                        quest = new EternalQuest(name, description, points);
-                        break;
-                    case "ListQuest":
-                        int targetCount = int.Parse(parts[4]);
-                        int currentCount = int.Parse(parts[5]);
-                        int bonusPoints = int.Parse(parts[6]);
-                        quest = new ListQuest(name, description, points, targetCount, currentCount, bonusPoints);
-                        break;
+                    writer.WriteLine(quest);
                 }
+            }
 
-                _quests.Add(quest);
+            Console.WriteLine("Goals saved successfully.");
+        }
+
+        public void LoadGoals()
+        {
+            Console.Write("Enter the file name to load goals: ");
+            string fileName = Console.ReadLine();
+
+            if (!File.Exists(fileName))
+            {
+                Console.WriteLine("File not found.");
+                return;
+            }
+
+            _quests.Clear();
+
+            using (StreamReader reader = new StreamReader(fileName))
+            {
+                _totalPoints = int.Parse(reader.ReadLine());
+                _level = int.Parse(reader.ReadLine());
+                _goldCoins = int.Parse(reader.ReadLine());
+
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] parts = line.Split('|');
+                    string type = parts[0];
+                    string name = parts[1];
+                    string description = parts[2];
+                    int points = int.Parse(parts[3]);
+
+                    Quest quest = type switch
+                    {
+                        "SimpleQuest" => new SimpleQuest(name, description, points, bool.Parse(parts[4])),
+                        "EternalQuest" => new EternalQuest(name, description, points),
+                        "ListQuest" => new ListQuest(name, description, points, int.Parse(parts[4]), int.Parse(parts[5]), int.Parse(parts[6])),
+                        _ => null
+                    };
+
+                    if (quest != null)
+                    {
+                        _quests.Add(quest);
+                    }
+                }
+            }
+
+            Console.WriteLine("Goals loaded successfully.");
+        }
+
+        public void CheckLevelUp()
+        {
+            int requiredPoints = _level * 100;
+            if (_totalPoints >= requiredPoints)
+            {
+                _level++;
+                _goldCoins += 10;
+                Console.WriteLine($"Congratulations! You leveled up to Level {_level}. You earned 10 gold coins.");
             }
         }
 
-        Console.WriteLine("Goals loaded successfully.");
-    }
-
-    public void CheckLevelUp()
-    {
-        int newLevel = _totalPoints / 1000;
-        if (newLevel > _level)
+        public void RedeemGoldCoins()
         {
-            int levelUps = newLevel - _level;
-            _level = newLevel;
-            _goldCoins += levelUps;
-            Console.WriteLine($"Congratulations! You leveled up to Level {_level} and earned {levelUps} gold coin(s).");
+            Console.WriteLine("===== Redeem Gold Coins =====");
+            Console.WriteLine($"You have {_goldCoins} gold coins.");
+            Console.WriteLine("1. Redeem for a reward (10 coins)");
+
+            Console.Write("Enter your choice: ");
+            string choice = Console.ReadLine();
+
+            if (choice == "1")
+            {
+                if (_goldCoins >= 10)
+                {
+                    _goldCoins -= 10;
+                    Console.WriteLine("You redeemed 10 gold coins for a reward.");
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient gold coins.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice.");
+            }
         }
-    }
-
-    public void RedeemGoldCoins()
-    {
-        Console.WriteLine("===== Redeem Gold Coins =====");
-        Console.WriteLine("You can redeem your gold coins for treats.");
-        Console.WriteLine("1 gold coin = 1 treat.");
-
-        Console.Write("Enter the number of gold coins to redeem: ");
-        int coinsToRedeem = int.Parse(Console.ReadLine());
-
-        if (coinsToRedeem <= 0 || coinsToRedeem > _goldCoins)
-        {
-            Console.WriteLine("Invalid number of coins.");
-            return;
-        }
-
-        _goldCoins -= coinsToRedeem;
-        Console.WriteLine($"You redeemed {coinsToRedeem} gold coin(s) for {coinsToRedeem} treat(s). Enjoy!");
     }
 }

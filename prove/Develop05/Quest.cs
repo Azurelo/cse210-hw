@@ -1,22 +1,25 @@
-public abstract class Quest
+namespace QuestTrackerApp
 {
-    public string Name { get; private set; }
-    public string Description { get; private set; }
-    public int Points { get; private set; }
-
-    public Quest(string name, string description, int points)
+    public abstract class Quest
     {
-        Name = name;
-        Description = description;
-        Points = points;
-    }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public int Points { get; private set; }
 
-    public abstract void RecordEvent(ref int totalPoints);
+        public Quest(string name, string description, int points)
+        {
+            Name = name;
+            Description = description;
+            Points = points;
+        }
 
-    public abstract bool IsComplete();
+        public abstract void RecordEvent(ref int totalPoints);
 
-    public override string ToString()
-    {
-        return $"{this.GetType().Name}|{Name}|{Description}|{Points}";
+        public abstract bool IsComplete();
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name}|{Name}|{Description}|{Points}";
+        }
     }
 }

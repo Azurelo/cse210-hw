@@ -1,34 +1,37 @@
-public class SimpleQuest : Quest
+namespace QuestTrackerApp
 {
-    private bool _isComplete;
-
-    public SimpleQuest(string name, string description, int points, bool isComplete = false)
-        : base(name, description, points)
+    public class SimpleQuest : Quest
     {
-        _isComplete = isComplete;
-    }
+        private bool _isComplete;
 
-    public override void RecordEvent(ref int totalPoints)
-    {
-        if (!_isComplete)
+        public SimpleQuest(string name, string description, int points, bool isComplete = false)
+            : base(name, description, points)
         {
-            totalPoints += Points;
-            _isComplete = true;
-            Console.WriteLine($"{Name} completed! You earned {Points} points.");
+            _isComplete = isComplete;
         }
-        else
+
+        public override void RecordEvent(ref int totalPoints)
         {
-            Console.WriteLine($"{Name} is already completed.");
+            if (!_isComplete)
+            {
+                totalPoints += Points;
+                _isComplete = true;
+                Console.WriteLine($"{Name} completed! You earned {Points} points.");
+            }
+            else
+            {
+                Console.WriteLine($"{Name} is already completed.");
+            }
         }
-    }
 
-    public override bool IsComplete()
-    {
-        return _isComplete;
-    }
+        public override bool IsComplete()
+        {
+            return _isComplete;
+        }
 
-    public override string ToString()
-    {
-        return base.ToString() + $"|{_isComplete}";
+        public override string ToString()
+        {
+            return base.ToString() + $"|{_isComplete}";
+        }
     }
 }
