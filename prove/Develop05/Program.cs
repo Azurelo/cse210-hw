@@ -17,9 +17,8 @@ namespace QuestTrackerApp
                 Console.WriteLine("3. Display Goals");
                 Console.WriteLine("4. Save Goals");
                 Console.WriteLine("5. Load Goals");
-                Console.WriteLine("6. Check Level Up");
-                Console.WriteLine("7. Redeem Gold Coins");
-                Console.WriteLine("8. Exit");
+                Console.WriteLine("6. Redeem Gold Coins");
+                Console.WriteLine("7. Exit");
 
                 Console.Write("Enter your choice: ");
                 string choice = Console.ReadLine();
@@ -42,12 +41,9 @@ namespace QuestTrackerApp
                         questTracker.LoadGoals();
                         break;
                     case "6":
-                        questTracker.CheckLevelUp();
-                        break;
-                    case "7":
                         questTracker.RedeemGoldCoins();
                         break;
-                    case "8":
+                    case "7":
                         quit = true;
                         break;
                     default:
