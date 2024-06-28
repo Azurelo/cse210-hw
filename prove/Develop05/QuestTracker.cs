@@ -173,30 +173,50 @@ namespace QuestTrackerApp
         }
 
         public void RedeemGoldCoins()
+    {
+        Console.WriteLine("\nTreats Menu:");
+        Console.WriteLine("1. Chocolate Bar - 1 gold coin");
+        Console.WriteLine("2. Ice Cream - 2 gold coins");
+        Console.WriteLine("3. Movie Ticket - 5 gold coins");
+        Console.Write("Choose a treat to redeem: ");
+
+        int choice;
+        if (!int.TryParse(Console.ReadLine(), out choice))
         {
-            Console.WriteLine("===== Redeem Gold Coins =====");
-            Console.WriteLine($"You have {_goldCoins} gold coins.");
-            Console.WriteLine("1. Redeem for a reward (10 coins)");
-
-            Console.Write("Enter your choice: ");
-            string choice = Console.ReadLine();
-
-            if (choice == "1")
-            {
-                if (_goldCoins >= 10)
-                {
-                    _goldCoins -= 10;
-                    Console.WriteLine("You redeemed 10 gold coins for a reward.");
-                }
-                else
-                {
-                    Console.WriteLine("Insufficient gold coins.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid choice.");
-            }
+            Console.WriteLine("Invalid input. Please enter a number between 1 and 3.");
+            return;
         }
-    }
+
+        int cost = 0;
+        string treat = "";
+
+        switch (choice)
+        {
+            case 1:
+                cost = 1;
+                treat = "Chocolate Bar";
+                break;
+            case 2:
+                cost = 2;
+                treat = "Ice Cream";
+                break;
+            case 3:
+                cost = 5;
+                treat = "Movie Ticket";
+                break;
+            default:
+                Console.WriteLine("Invalid choice. Please enter a number between 1 and 3.");
+                return;
+        }
+
+        if (_goldCoins >= cost)
+        {
+            _goldCoins -= cost;
+            Console.WriteLine($"You redeemed {cost} gold coin(s) for a {treat}. Enjoy your treat!");
+        }
+        else
+        {
+            Console.WriteLine("You do not have enough gold coins.");
+        }
+    }}
 }
