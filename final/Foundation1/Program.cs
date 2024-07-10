@@ -16,6 +16,8 @@ class Program
 
         video2.AddComment(new Comment("George", "I love this recipe!"));
         video2.AddComment(new Comment("Hannah", "Can't wait to try this."));
+        video2.AddComment(new Comment("Julie", "Make the videos longer please!"));
+        video2.AddComment(new Comment("Marcus", "Nice."));
 
         video3.AddComment(new Comment("Ivy", "Beautiful places!"));
         video3.AddComment(new Comment("Jack", "Great video quality."));
