@@ -5,7 +5,6 @@ public class Program
         var activities = new List<Activity>
         {
             new Running("03 July 2024", 30, 3.0),  // miles
-            new Running("07 June 2024", 30, 4.8),  // kilometers
             new Cycling("21 April 2024", 45, 20.0), // speed in mph
             new Swimming("30 Nov 2024", 45, 20)   // laps
         };
